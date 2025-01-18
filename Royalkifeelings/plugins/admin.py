@@ -1,3 +1,4 @@
+from pyrogram.enums import ChatMembersFilter
 from pyrogram import filters
 from pyrogram.types import (
     CallbackQuery,
@@ -20,7 +21,7 @@ from Royalkifeelings import call_py
 async def update_admin(client, message):
     global admins
     new_admins = []
-    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
+    new_ads = await client.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS)
     for u in new_ads:
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
