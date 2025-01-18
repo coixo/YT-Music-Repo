@@ -1,6 +1,6 @@
 import re
 import asyncio
-
+from pyrogram.enums import ChatMemberStatus
 from Royalkifeelings import BOT_USERNAME
 from Royalkifeelings.helper.inline import stream_markup, audio_markup
 from Royalkifeelings.handler.chatname import CHAT_TITLE
@@ -68,7 +68,7 @@ async def vplay(c: Royalboyamit, m: Message):
     except Exception as e:
         return await m.reply_text(f"error:\n\n{e}")
     a = await c.get_chat_member(chat_id, aing.id)
-    if a.status != "administrator":
+    if a.status != ChatMemberStatus.ADMINISTRATOR:
         await m.reply_text(
             f"**💡 ᴛᴏ ᴜsᴇ ᴍᴇ, ɪ ɴᴇᴇᴅ ᴛᴏ ʙᴇ ᴀɴ **ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀ** ᴡɪᴛʜ ᴛʜᴇ ғᴏʟʟᴏᴡɪɴɢ **ᴘᴇʀᴍɪssɪᴏɴs**:\n\n» ❌ __ᴅᴇʟᴇᴛᴇ ᴍᴇssᴀɢᴇs__\n» ❌ __ɪɴᴠɪᴛᴇ ᴜsᴇʀs__\n» ❌ __ᴍᴀɴᴀɢᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛ__\n\nᴏɴᴄᴇ ᴅᴏɴᴇ, ᴛʏᴘᴇ /ʀᴇʟᴏᴀᴅ**"
         )
@@ -91,7 +91,7 @@ async def vplay(c: Royalboyamit, m: Message):
     try:
         ubot = (await user.get_me()).id
         b = await c.get_chat_member(chat_id, ubot) 
-        if b.status == "kicked":
+        if b.status == ChatMemberStatus.BANNED:
             await c.unban_chat_member(chat_id, ubot)
             invitelink = await c.export_chat_invite_link(chat_id)
             if invitelink.startswith("https://t.me/+"):
